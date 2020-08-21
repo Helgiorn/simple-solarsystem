@@ -1,1 +1,11 @@
-__pycache__/
+	
+# python/editor specific files to ignore
+dist/
+build/
+*.pyc
+*.pyo
+*.swp
+*.egg-info
+*.eggs/
+*.conf
+__pycache__
