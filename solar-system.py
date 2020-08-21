@@ -1,6 +1,6 @@
 import pygame
 import math
-from PlanetaryObjectManager import PlanetaryObjectManager
+#from PlanetaryObjectManager import PlanetaryObjectManager
 
 #move to file then comment out
 GRAVITATIONAL_CONSTANT = 6.7 * math.pow(10, -11)
