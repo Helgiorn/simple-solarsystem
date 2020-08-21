@@ -5,7 +5,7 @@ from PlanetaryObjectManager import PlanetaryObject
 TIME_FACTOR = 1000000
 FRAMES_PER_SECOND = 60
 
-pygame.init()
+# pygame.init()
 
 #Pygame stuff, leave here for now
 screen_width = 1200
@@ -38,32 +38,48 @@ moon_angle = 0
 phobos_angle = 0
 deimos_angle = 0
 
-#done in class, iterate through somehowe
-mercury = PlanetaryObject(2)
+solarsystem = []
 
-mercury_angle = mercury.angle
-mercury_period = mercury.period
+with open('planets.txt', encoding="utf8") as f:
+    for line in f:
+        parts = line.split(",")
+        solarsystem.append(PlanetaryObject(parts[0]))
 
-running = True
+for object in solarsystem:
+    print (object.name)
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
 
-    mercury_angle = mercury_angle + mercury.radians_per_frame
+# running = True
 
-    mercury_x = (round((mercury.display_radius * math.cos(mercury_angle)) + sun_x, 2))
-    mercury_y = (round((mercury.display_radius * math.sin(mercury_angle)) + sun_y, 2))
+# while running:
+#     for event in pygame.event.get():
+#         if event.type == pygame.QUIT:
+#             running = False
 
-    screen.fill((black))
 
-    pygame.draw.circle(screen, yellow, [sun_x, sun_y], 30)
-    pygame.draw.circle(screen, white, [sun_x, sun_y], mercury.display_radius, width=1)
-    pygame.draw.circle(screen, gray, [mercury_x, mercury_y], 5)
+#     earth_angle = earth_angle + earth.angle_per_frame
+#     moon_angle = moon_angle + moon.angle_per_frame
 
-    pygame.display.flip()
-    clock.tick(FRAMES_PER_SECOND)
+#     earth_x = (round((earth_display_radius * math.cos(earth_angle)) + sun_x, 2))
+#     earth_y = (round((earth_display_radius * math.sin(earth_angle)) + sun_y, 2))
+ 
+#     earth_moon_x = (round((moon_display_radius * math.cos(moon_angle)) + earth_x, 2))
+#     earth_moon_y = (round((moon_display_radius * math.sin(moon_angle)) + earth_y, 2))
+#     earth_moon_orbit_x = earth_x
+#     earth_moon_orbit_y = earth_y
 
-pygame.quit()
-quit()
+#     screen.fill((black))
+
+#     pygame.draw.circle(screen, yellow, [sun_x, sun_y], 30)
+   
+#     pygame.draw.circle(screen, white, [sun_x, sun_y], earth_display_radius, width=1)
+#     pygame.draw.circle(screen, blue, [earth_x, earth_y], 5)
+
+#     pygame.draw.circle(screen, white, [earth_moon_x, earth_moon_y], 1)
+#     pygame.draw.circle(screen, white, [earth_moon_orbit_x, earth_moon_orbit_y], moon_display_radius, width=1)
+
+#     pygame.display.flip()
+#     clock.tick(FRAMES_PER_SECOND)
+
+# pygame.quit()
+# quit()
