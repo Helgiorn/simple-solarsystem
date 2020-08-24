@@ -9,7 +9,7 @@ class PlanetaryObject:
         self.name = ""
         self.color = ""
         self.radius = 0
-        self.display_radius = 0
+        self.orbital_radius = 0
         self.angle = 0
         self.mass = 0
         self.period = 0
@@ -41,6 +41,7 @@ class PlanetaryObject:
     def read_object(self):
         with open('planets.txt', encoding="utf8") as f:
             
+            #ID,ParentID,type,Name,Radius,OrbitalRadius,Angle,Mass
             for line in f:
                 parts = line.split(",")
                 if str(self.id) == parts[0]:
@@ -48,12 +49,10 @@ class PlanetaryObject:
                     self.parentid = parts[1]
                     self.type = parts[2]
                     self.name = parts[3]
-                    self.color = parts[4]
-                    self.radius = float(parts[5])
-                    self.display_radius= float(parts[6])
-                    self.angle = float(parts[7])
-                    #TODO: this is a hack, mass needs better handling later.
-                    self.mass = parts[8]
+                    self.radius = float(parts[4])
+                    self.orbital_radius= float(parts[5])
+                    self.angle = float(parts[6])
+                    self.mass = parts[7]
 
     def calculate_mass(self):
         pass
@@ -64,11 +63,12 @@ class PlanetaryObject:
         with open('planets.txt', encoding="utf8") as f:
             for line in f:
                 parts = line.split(",")
+                #ID,ParentID,type,Name,Radius,OrbitalRadius,Angle,Mass
                 if str(self.parentid) == parts[0]:
                     self.parent_name = parts[3]
-                    self.parent_mass = int(parts[8]) * math.pow(10, 30)
-                    self.parent_angle = float(parts[7])
-                    self.parent_display_radius = float(parts[6])
+                    self.parent_mass = int(parts[6]) * math.pow(10, 30)
+                    self.parent_angle = float(parts[5])
+                    self.parent_display_radius = float(parts[5])
 
     def write_object():
         pass

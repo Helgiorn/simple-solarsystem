@@ -34,7 +34,7 @@ blue = (0,0, 255)
 red = (255,0,0)
 
 #move to text, then comment out
-mercury_display_radius = 40
+mercury_display_radius = 350
 venus_display_radius = 70
 earth_display_radius = 100
 mars_display_radius = 150

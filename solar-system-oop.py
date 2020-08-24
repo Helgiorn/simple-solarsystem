@@ -28,14 +28,14 @@ clock = pygame.time.Clock()
 screen.fill(black)
 
 #calculated in class
-mercury_angle = 0
-venus_angle = 0
-earth_angle = 0
-mars_angle = 0
-neptune_angle = 0
-moon_angle = 0
-phobos_angle = 0
-deimos_angle = 0
+# mercury_angle = 0
+# venus_angle = 0
+# earth_angle = 0
+# mars_angle = 0
+# neptune_angle = 0
+# moon_angle = 0
+# phobos_angle = 0
+# deimos_angle = 0
 
 solarsystem = []
 
@@ -63,10 +63,13 @@ while running:
         if object.type != "0":
             new_angle = object.angle
             object.angle = new_angle + object.radians_per_frame
-            object.x = (round((object.display_radius * math.cos(object.angle)) + sun_x, 2))
-            object.y = (round((object.display_radius * math.sin(object.angle)) + sun_y, 2))
-            pygame.draw.circle(screen, white, [sun_x, sun_y], object.display_radius, width=1)
-            pygame.draw.circle(screen, white, [object.x, object.y], 2)
+            object.x = (round((object.orbital_radius * math.cos(object.angle)) + sun_x, 2))
+            object.y = (round((object.orbital_radius * math.sin(object.angle)) + sun_y, 2))
+            pygame.draw.circle(screen, object.color, [sun_x, sun_y], object.display_radius, width=1)
+            print (object.color)
+            pygame.draw.circle(screen, object.color, [object.x, object.y], 2)
+
+        #TODO: moon implementation is not ready yet
         # elif object.type == "2":
         #     new_angle = object.angle + object.angle_per_frame
         #     new_x = (round((earth_display_radius * math.cos(earth_angle)) + sun_x, 2))
