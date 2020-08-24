@@ -1,3 +1,5 @@
+
+#ID,ParentID,type,Name,Radius,OrbitalRadius,Angle,Mass
 1,0,1,Sun,30,0,0,2
 2,1,2,Mercury,58,0.055,5,2
 3,1,2,Venus,152,0.815,5,2
@@ -8,3 +10,17 @@
 8,1,2,Uranus,2960,14.54,5,2
 9,1,2,Neptunus,4476,17.15,2,2
 10,1,2,pluto,5600,0.0022,2,2
+
+
+GRAVITATIONAL_CONSTANT = 6.7 * math.pow(10, -11)
+MERCURY_RADIUS = 0.3 * math.pow(10, 11)
+VENUS_RADIUS = 0.5 * math.pow(10, 11)
+EARTH_RADIUS = 0.6 * math.pow(10, 11)
+MARS_RADIUS = 0.65 * math.pow(10, 11)
+NEPTUNE_RADIUS = 4.5 * math.pow(10, 12)
+MOON_RADIUS = 3.8 * math.pow(10, 8)
+PHOBOS_RADIUS = 3.8 * math.pow(10, 8)
+DEIMOS_RADIUS = 3.8 * math.pow(10, 8)
+MASS_OF_THE_SUN = 2.0 * math.pow(10, 30)
+MASS_OF_THE_EARTH = 6.0 * math.pow(10, 24)
+MASS_OF_THE_MARS = 6.0 * math.pow(10, 24)
