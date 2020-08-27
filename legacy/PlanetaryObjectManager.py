@@ -1,4 +1,5 @@
 import math
+import csv
 
 class PlanetaryObject:
 
@@ -29,14 +30,14 @@ class PlanetaryObject:
         #init the rest (find a better way?)
         
         self.read_object()
-        self.read_parent()
+        #self.read_parent()
         #hack, not all mass calculations are ok with 10, 24
         self.mass = float(self.mass) * math.pow(10, 24)
         self.radius = float(self.radius) * math.pow(10, 11)
         self.calculate_simulation_period()
         self.angle_per_frame()
-        # self.x = (round((self.display_radius * math.cos(self.angle)) + self.parent_x, 2))
-        # self.y = (round((self.display_radius * math.sin(self.angle)) + self.parent_y, 2))
+        self.x = (round((self.orbital_radius * math.cos(self.angle)) + self.parent_x, 2))
+        self.y = (round((self.orbital_radius * math.sin(self.angle)) + self.parent_y, 2))
     
     def read_object(self):
         with open('planets.txt', encoding="utf8") as f:
@@ -54,21 +55,12 @@ class PlanetaryObject:
                     self.angle = float(parts[6])
                     self.mass = parts[7]
 
-    def calculate_mass(self):
-        pass
-        #I am using earth mass in the "database", this needs to be converted using earth mass to real mass for each planet/object
-    
-    #TODO: get parent mass
-    def read_parent(self):
-        with open('planets.txt', encoding="utf8") as f:
-            for line in f:
-                parts = line.split(",")
-                #ID,ParentID,type,Name,Radius,OrbitalRadius,Angle,Mass
-                if str(self.parentid) == parts[0]:
-                    self.parent_name = parts[3]
-                    self.parent_mass = int(parts[6]) * math.pow(10, 30)
-                    self.parent_angle = float(parts[5])
-                    self.parent_display_radius = float(parts[5])
+    # #TODO: get parent mass
+    # def read_parent(self):
+    #     parent = PlanetaryObject(self.parentid)
+    #     self.parent_name = parent.name()
+    #     self.parent_x = parent.parent_x
+    #     self.parent_y = parent.parent_y
 
     def write_object():
         pass
@@ -82,3 +74,6 @@ class PlanetaryObject:
         total_frames = self.period * self.FRAMES_PER_SECOND
         # Multiply by minus one so we orbit counter-clockwise
         self.radians_per_frame = -1 * (2 * math.pi) / total_frames
+
+earth = PlanetaryObject(4)
+print (earth.parent_name)
