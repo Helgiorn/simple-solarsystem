@@ -61,5 +61,3 @@ class PlanetaryObject:
 
     def update_tick(self):
         self.angle = float(self.angle) + float(self.angle_tick)
-
-

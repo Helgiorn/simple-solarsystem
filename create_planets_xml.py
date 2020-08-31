@@ -106,7 +106,7 @@ sol['planets'].append({
 })
 
 seed(1)
-amount = 400
+amount = 1000
 i = 0
 while i <= amount:
     name = "asteroid" + str(i)
@@ -116,7 +116,7 @@ while i <= amount:
         'type': 3,
         'name': name,
         'angle': randint(0, 300),
-        'display_radius': randint(60, 75),
+        'display_radius': randint(65, 95),
         'radius': 30000000000.0,
         'size' : 1,
         'color' : [211, 211, 211],

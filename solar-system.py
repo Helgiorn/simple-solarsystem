@@ -3,47 +3,27 @@ import math
 import pygame
 from sol_gen import PlanetaryObject
 
-#move to file then comment out
 GRAVITATIONAL_CONSTANT = 6.7 * math.pow(10, -11)
-# MERCURY_RADIUS = 0.3 * math.pow(10, 11)
-# VENUS_RADIUS = 0.5 * math.pow(10, 11)
-# EARTH_RADIUS = 0.6 * math.pow(10, 11)
-# MARS_RADIUS = 0.65 * math.pow(10, 11)
-# NEPTUNE_RADIUS = 4.5 * math.pow(10, 12)
-# MOON_RADIUS = 3.8 * math.pow(10, 8)
-# PHOBOS_RADIUS = 3.8 * math.pow(10, 8)
-# DEIMOS_RADIUS = 3.8 * math.pow(10, 8)
 MASS_OF_THE_SUN = 2.0 * math.pow(10, 30)
 MASS_OF_THE_EARTH = 6.0 * math.pow(10, 24)
 MASS_OF_THE_MARS = 6.0 * math.pow(10, 24)
-screen_width = 1600
-screen_height = 1200
+yellow = (255, 255, 0)
+black = (0, 0, 0)
+gray = (211,211,211)
+screen_width = 2560
+screen_height = 1440
 sun_x = 0.5 * screen_width
 sun_y = 0.5 * screen_height
-
 TIME_FACTOR = 100000
 FRAMES_PER_SECOND = 60
 
 pygame.init()
-
-#Pygame stuff, leave here for now
-black = (0, 0, 0)
-gray = (169, 169, 169)
-white = (255, 255, 255)
-green = (0, 255, 0)
-yellow = (255, 255, 0)
-lblue = (0,0, 150)
-blue = (0,0, 255)
-red = (255,0,0)
-
-#pygame stuff
-
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Solar System")
 clock = pygame.time.Clock()
 screen.fill(black)
 
-#use class function
+
 def calculate_simulation_period(radius, central_mass):
     period = (2 * math.pi * math.pow(radius, 3 / 2)) / math.pow(GRAVITATIONAL_CONSTANT * central_mass, 1 / 2)
     accelerated_period = period / TIME_FACTOR
