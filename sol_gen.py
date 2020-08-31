@@ -17,6 +17,8 @@ class PlanetaryObject:
         self.x = 0.01
         self.y = 0.01
         self.au = 1.496e+8 * 2
+        self.size = 0
+        self.color = ""
 
         self.read_from_json()
 
@@ -31,8 +33,10 @@ class PlanetaryObject:
                     #self.id = p['id']
                     self.name = p['name']
                     self.angle = p['angle']
-                    self.display_radius = p['display_radius']
+                    self.display_radius = p['display_radius'] + 25
                     self.radius = p['radius']
+                    self.size = p['size']
+                    self.color = p['color']
   
 
     def update_period(self, period):

@@ -57,17 +57,17 @@ while RUNNING:
     pygame.draw.circle(SCREEN, YELLOW, [SUN_X, SUN_Y], 1)
 
     NEW_ANGLE = 0
-    for STAR_OBJECT in SOLARSYSTEM:
+    for StarObject in SOLARSYSTEM:
         #if object.type == "0":
         #TODO: Draw sun first
-        if STAR_OBJECT.type != "0":
-            NEW_ANGLE = STAR_OBJECT.angle
-            STAR_OBJECT.angle = NEW_ANGLE + STAR_OBJECT.radians_per_frame
-            STAR_OBJECT.x = (round((STAR_OBJECT.orbital_radius * math.cos(STAR_OBJECT.angle)) + SUN_X, 2))
-            STAR_OBJECT.y = (round((STAR_OBJECT.orbital_radius * math.sin(STAR_OBJECT.angle)) + SUN_Y, 2))
-            pygame.draw.circle(SCREEN, STAR_OBJECT.color, [SUN_X, SUN_Y], STAR_OBJECT.display_radius, width=1)
-            print(STAR_OBJECT.color)
-            pygame.draw.circle(SCREEN, STAR_OBJECT.color, [STAR_OBJECT.x, STAR_OBJECT.y], 2)
+        if StarObject.type != "0":
+            NEW_ANGLE = StarObject.angle
+            StarObject.angle = NEW_ANGLE + StarObject.radians_per_frame
+            StarObject.x = (round((StarObject.orbital_radius * math.cos(StarObject.angle)) + SUN_X, 2))
+            StarObject.y = (round((StarObject.orbital_radius * math.sin(StarObject.angle)) + SUN_Y, 2))
+            pygame.draw.circle(SCREEN, StarObject.color, [SUN_X, SUN_Y], StarObject.display_radius, width=1)
+            print(StarObject.color)
+            pygame.draw.circle(SCREEN, StarObject.color, [StarObject.x, StarObject.y], 2)
 
         #TODO: moon implementation is not ready yet
         # elif object.type == "2":

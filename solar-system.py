@@ -16,19 +16,19 @@ GRAVITATIONAL_CONSTANT = 6.7 * math.pow(10, -11)
 MASS_OF_THE_SUN = 2.0 * math.pow(10, 30)
 MASS_OF_THE_EARTH = 6.0 * math.pow(10, 24)
 MASS_OF_THE_MARS = 6.0 * math.pow(10, 24)
-screen_width = 1200
-screen_height = 800
+screen_width = 1600
+screen_height = 1200
 sun_x = 0.5 * screen_width
 sun_y = 0.5 * screen_height
 
-TIME_FACTOR = 1000000
+TIME_FACTOR = 100000
 FRAMES_PER_SECOND = 60
 
 pygame.init()
 
 #Pygame stuff, leave here for now
 black = (0, 0, 0)
-gray = (211, 211, 211)
+gray = (169, 169, 169)
 white = (255, 255, 255)
 green = (0, 255, 0)
 yellow = (255, 255, 0)
@@ -60,15 +60,15 @@ SOLARSYSTEM = []
 with open('planets.json') as json_file:
     data = json.load(json_file)
     for p in data['planets']:
-        if p['type'] == 2:
+        if p['type'] == 2 or 3:
             SOLARSYSTEM.append(PlanetaryObject(p['id']))
+        
 
-
-for STAR_OBJECT in SOLARSYSTEM:
-    period = calculate_simulation_period(STAR_OBJECT.radius, MASS_OF_THE_SUN)
-    STAR_OBJECT.update_period(period)
+for StarObject in SOLARSYSTEM:
+    period = calculate_simulation_period(StarObject.radius, MASS_OF_THE_SUN)
+    StarObject.update_period(period)
     angle_tick = angle_per_frame(period)
-    STAR_OBJECT.update_angle_per_frame(angle_tick)
+    StarObject.update_angle_per_frame(angle_tick)
 
 
 running = True
@@ -79,17 +79,21 @@ while running:
             running = False
 
     screen.fill((black))
-    pygame.draw.circle(screen, yellow, [sun_x, sun_y], 15)
+    pygame.draw.circle(screen, yellow, [sun_x, sun_y], 25)
 
-    for STAR_OBJECT in SOLARSYSTEM:
-        STAR_OBJECT.update_tick()
-        star_x = (round((float(STAR_OBJECT.display_radius) * math.cos(float(STAR_OBJECT.angle))) + sun_x, 2))
-        star_y = (round((float(STAR_OBJECT.display_radius) * math.sin(float(STAR_OBJECT.angle))) + sun_y, 2))
-        STAR_OBJECT.update_x(star_x)
-        STAR_OBJECT.update_y(star_y)
+    for StarObject in SOLARSYSTEM:
+        StarObject.update_tick()
+        star_x = (round((float(StarObject.display_radius) * math.cos(float(StarObject.angle))) + sun_x, 2))
+        star_y = (round((float(StarObject.display_radius) * math.sin(float(StarObject.angle))) + sun_y, 2))
+        StarObject.update_x(star_x)
+        StarObject.update_y(star_y)
 
-        pygame.draw.circle(screen, white, [sun_x, sun_y], STAR_OBJECT.display_radius, width=1)
-        pygame.draw.circle(screen, white, [STAR_OBJECT.x, STAR_OBJECT.y], 5)
+        if StarObject.type == 2:
+            pygame.draw.circle(screen, gray, [sun_x, sun_y], StarObject.display_radius, width=1)
+            pygame.draw.circle(screen, StarObject.color, [StarObject.x, StarObject.y], StarObject.size)
+        else:
+            pygame.draw.circle(screen, StarObject.color, [StarObject.x, StarObject.y], StarObject.size)
+
 
     pygame.display.flip()
     clock.tick(FRAMES_PER_SECOND)
