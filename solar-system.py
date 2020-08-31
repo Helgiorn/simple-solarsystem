@@ -88,11 +88,10 @@ while running:
         StarObject.update_x(star_x)
         StarObject.update_y(star_y)
 
-        if StarObject.type == 2:
+        if StarObject.type != 3:
             pygame.draw.circle(screen, gray, [sun_x, sun_y], StarObject.display_radius, width=1)
             pygame.draw.circle(screen, StarObject.color, [StarObject.x, StarObject.y], StarObject.size)
-        else:
-            pygame.draw.circle(screen, StarObject.color, [StarObject.x, StarObject.y], StarObject.size)
+        else: pygame.draw.circle(screen, StarObject.color, [StarObject.x, StarObject.y], StarObject.size)
 
 
     pygame.display.flip()

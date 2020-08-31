@@ -29,7 +29,7 @@ class PlanetaryObject:
             for p in planets['planets']:
                 if p['id'] == self.id:
                     self.parentid = p['parentid']
-                    self.type = str(p['type'])
+                    self.type = p['type']
                     #self.id = p['id']
                     self.name = p['name']
                     self.angle = p['angle']
