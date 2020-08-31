@@ -1,3 +1,4 @@
+import json
 import math
 import pygame
 from sol_gen import PlanetaryObject
@@ -56,18 +57,18 @@ def angle_per_frame(period):
 
 
 SOLARSYSTEM = []
-with open('planets.txt', encoding="utf8") as f:
-    for line in f:
-        parts = line.split(",")
-        if parts[1] != "0":
-            SOLARSYSTEM.append(PlanetaryObject(parts[0]))
+with open('planets.json') as json_file:
+    data = json.load(json_file)
+    for p in data['planets']:
+        if p['type'] == 2:
+            SOLARSYSTEM.append(PlanetaryObject(p['id']))
 
 
 for STAR_OBJECT in SOLARSYSTEM:
-        period = calculate_simulation_period(STAR_OBJECT.radius, MASS_OF_THE_SUN)
-        STAR_OBJECT.update_period(period)
-        angle_tick = angle_per_frame(period)
-        STAR_OBJECT.update_angle_per_frame(angle_tick)
+    period = calculate_simulation_period(STAR_OBJECT.radius, MASS_OF_THE_SUN)
+    STAR_OBJECT.update_period(period)
+    angle_tick = angle_per_frame(period)
+    STAR_OBJECT.update_angle_per_frame(angle_tick)
 
 
 running = True

@@ -1,10 +1,12 @@
 import math
-import csv
+import json
 
 class PlanetaryObject:
 
     def __init__(self, id):
         self.id = id
+        self.parentid = 0
+        self.type = 0
         self.name = ""
         self.angle = 0.1
         self.new_angle = 0.0
@@ -16,21 +18,22 @@ class PlanetaryObject:
         self.y = 0.01
         self.au = 1.496e+8 * 2
 
+        self.read_from_json()
 
-        self.read_values()
-    
-    def read_values(self):
-        with open('planets.txt', encoding="utf8") as f:
-            
-            #ID,name,angle,display_radius,radius
-            for line in f:
-                parts = line.split(",")
-                if str(self.id) == parts[0]:
-                    self.id = parts[0]
-                    self.name = parts[1]
-                    self.angle = parts[2]
-                    self.display_radius = float(parts[3])
-                    self.radius = float(parts[4])
+    def read_from_json(self):
+        data = {}
+        with open('planets.json') as json_file:
+            planets = json.load(json_file)
+            for p in planets['planets']:
+                if p['id'] == self.id:
+                    self.parentid = p['parentid']
+                    self.type = str(p['type'])
+                    #self.id = p['id']
+                    self.name = p['name']
+                    self.angle = p['angle']
+                    self.display_radius = p['display_radius']
+                    self.radius = p['radius']
+  
 
     def update_period(self, period):
         self.period = float(period)
@@ -46,12 +49,13 @@ class PlanetaryObject:
 
     def update_y(self, y):
         self.y = y
-    
+
+
     def update_angle_per_frame(self, angle_tick):
             self.angle_tick = float(angle_tick)
 
+
     def update_tick(self):
-        #print(self.name, self.angle, self.angle_tick)
         self.angle = float(self.angle) + float(self.angle_tick)
-        #print(self.name, self.angle)
+
 
