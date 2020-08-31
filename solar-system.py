@@ -15,12 +15,12 @@ GRAVITATIONAL_CONSTANT = 6.7 * math.pow(10, -11)
 MASS_OF_THE_SUN = 2.0 * math.pow(10, 30)
 MASS_OF_THE_EARTH = 6.0 * math.pow(10, 24)
 MASS_OF_THE_MARS = 6.0 * math.pow(10, 24)
-screen_width = 1600
-screen_height = 1200
+screen_width = 1200
+screen_height = 800
 sun_x = 0.5 * screen_width
 sun_y = 0.5 * screen_height
 
-TIME_FACTOR = 10000000
+TIME_FACTOR = 1000000
 FRAMES_PER_SECOND = 60
 
 pygame.init()
@@ -46,61 +46,52 @@ screen.fill(black)
 def calculate_simulation_period(radius, central_mass):
     period = (2 * math.pi * math.pow(radius, 3 / 2)) / math.pow(GRAVITATIONAL_CONSTANT * central_mass, 1 / 2)
     accelerated_period = period / TIME_FACTOR
-    # return round(accelerated_period, 2)
-    return accelerated_period
+    return round(accelerated_period, 2)
 
 def angle_per_frame(period):
     total_frames = period * FRAMES_PER_SECOND
     # Multiply by minus one so we orbit counter-clockwise
     radians_per_frame = -1 * (2 * math.pi) / total_frames
     return radians_per_frame
-###
-SOLARSYSTEM = []
 
+
+SOLARSYSTEM = []
 with open('planets.txt', encoding="utf8") as f:
     for line in f:
         parts = line.split(",")
         if parts[1] != "0":
             SOLARSYSTEM.append(PlanetaryObject(parts[0]))
 
-for STAR_OBJECT in SOLARSYSTEM:
-    if STAR_OBJECT.name == "Earth":
-        period = calculate_simulation_period(STAR_OBJECT.radius, MASS_OF_THE_SUN)
-        print (period)
-        STAR_OBJECT.update_period(period)
-        print (STAR_OBJECT.period)
-        STAR_OBJECT.angle_per_frame = angle_per_frame(STAR_OBJECT.period)
-        print (STAR_OBJECT.angle_per_frame)
-        print (float(STAR_OBJECT.angle_per_frame) + float(STAR_OBJECT.angle))
 
-###
+for STAR_OBJECT in SOLARSYSTEM:
+        period = calculate_simulation_period(STAR_OBJECT.radius, MASS_OF_THE_SUN)
+        STAR_OBJECT.update_period(period)
+        angle_tick = angle_per_frame(period)
+        STAR_OBJECT.update_angle_per_frame(angle_tick)
+
+
 running = True
 
-# while running:
-#     for event in pygame.event.get():
-#         if event.type == pygame.QUIT:
-#             running = False
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
 
-#     screen.fill((black))
-#     pygame.draw.circle(screen, yellow, [sun_x, sun_y], 30)
+    screen.fill((black))
+    pygame.draw.circle(screen, yellow, [sun_x, sun_y], 15)
 
-#     for STAR_OBJECT in SOLARSYSTEM:
-#         STAR_OBJECT.update_angle_tick()
+    for STAR_OBJECT in SOLARSYSTEM:
+        STAR_OBJECT.update_tick()
+        star_x = (round((float(STAR_OBJECT.display_radius) * math.cos(float(STAR_OBJECT.angle))) + sun_x, 2))
+        star_y = (round((float(STAR_OBJECT.display_radius) * math.sin(float(STAR_OBJECT.angle))) + sun_y, 2))
+        STAR_OBJECT.update_x(star_x)
+        STAR_OBJECT.update_y(star_y)
 
-#         if STAR_OBJECT.name == "Earth":
-#             print (STAR_OBJECT.angle)
+        pygame.draw.circle(screen, white, [sun_x, sun_y], STAR_OBJECT.display_radius, width=1)
+        pygame.draw.circle(screen, white, [STAR_OBJECT.x, STAR_OBJECT.y], 5)
 
-#         x = (round((STAR_OBJECT.display_radius * math.cos(STAR_OBJECT.angle)) + sun_x, 2))
-#         y = (round((STAR_OBJECT.display_radius * math.sin(STAR_OBJECT.angle)) + sun_y, 2))
-#         STAR_OBJECT.update_x(x)
-#         STAR_OBJECT.update_y(y)
+    pygame.display.flip()
+    clock.tick(FRAMES_PER_SECOND)
 
-#         pygame.draw.circle(screen, white, [sun_x, sun_y], STAR_OBJECT.display_radius, width=1)
-#         pygame.draw.circle(screen, white, [STAR_OBJECT.x, STAR_OBJECT.y], 2)
-
-
-#     pygame.display.flip()
-#     clock.tick(FRAMES_PER_SECOND)
-
-# pygame.quit()
-# quit()
+pygame.quit()
+quit()

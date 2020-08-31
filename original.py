@@ -16,7 +16,7 @@ MASS_OF_THE_EARTH = 6.0 * math.pow(10, 24)
 MASS_OF_THE_MARS = 6.0 * math.pow(10, 24)
 
 
-TIME_FACTOR = 1000000
+TIME_FACTOR = 100000
 FRAMES_PER_SECOND = 60
 
 pygame.init()
@@ -34,7 +34,7 @@ blue = (0,0, 255)
 red = (255,0,0)
 
 #move to text, then comment out
-mercury_display_radius = 350
+mercury_display_radius = 35
 venus_display_radius = 70
 earth_display_radius = 100
 mars_display_radius = 150
@@ -55,6 +55,7 @@ screen.fill(black)
 def calculate_simulation_period(radius, central_mass):
     period = (2 * math.pi * math.pow(radius, 3 / 2)) / math.pow(GRAVITATIONAL_CONSTANT * central_mass, 1 / 2)
     accelerated_period = period / TIME_FACTOR
+    print (accelerated_period)
     return round(accelerated_period, 2)
 
 def angle_per_frame(period):
@@ -74,7 +75,6 @@ moon_angle = 0
 phobos_angle = 50
 deimos_angle = 0
 
-#done in class, iterate through somehowe
 venus_period = calculate_simulation_period(VENUS_RADIUS, MASS_OF_THE_SUN)
 venus_angle_per_frame = angle_per_frame(venus_period)
 
